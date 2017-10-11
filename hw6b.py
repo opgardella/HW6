@@ -17,18 +17,32 @@ ctx = ssl.create_default_context()
 ctx.check_hostname = False
 ctx.verify_mode = ssl.CERT_NONE
 
-url = input('Enter - ')
-html = urllib.request.urlopen(url, context=ctx).read()
-soup = BeautifulSoup(html, 'html.parser')
+#url = input('Enter - ')
+#html = urllib.request.urlopen(url, context=ctx).read()
+#soup = BeautifulSoup(html, 'html.parser')
 
 # Retrieve all of the anchor tags
-tags = soup('a')
-for tag in tags:
-    print(tag.get('href', None))
+#tags = soup('a')
+#for tag in tags:
+#    print(tag.get('href', None))
 
-count = int(input('Enter count: '))
-position = int(input('Enter position: '))
-for i in range(count):
-    l = soup.find_all('a')[position]
-    url = l
-print (l)
+#count = int(input('Enter count: '))
+counter = 0
+#position = int(input('Enter position: '))
+x = 0
+url = 'http://py4e-data.dr-chuck.net/known_by_Giacomo.html'
+while counter < 7:
+    html = urllib.request.urlopen(url).read()
+    soup = BeautifulSoup(html)
+    tags = soup('a')
+
+    for i in tags:
+        x = x + 1
+        if x == 18:
+            ad = i.get('href', None)
+
+            x = 0
+            break
+    counter = counter + 1
+
+print (ad)
