@@ -1,13 +1,6 @@
 #HW6b
 #Olivia Gardella
 
-# To run this, you can install BeautifulSoup
-# https://pypi.python.org/pypi/beautifulsoup4
-
-# Or download the file
-# http://www.py4e.com/code3/bs4.zip
-# and unzip it in the same directory as this file
-
 import urllib.request, urllib.parse, urllib.error
 from bs4 import BeautifulSoup
 import ssl
@@ -17,32 +10,22 @@ ctx = ssl.create_default_context()
 ctx.check_hostname = False
 ctx.verify_mode = ssl.CERT_NONE
 
-#url = input('Enter - ')
-#html = urllib.request.urlopen(url, context=ctx).read()
-#soup = BeautifulSoup(html, 'html.parser')
+url = input('Enter - ')
+count = int(input('Enter count: '))
+position = int(input('Enter position: '))
 
-# Retrieve all of the anchor tags
-#tags = soup('a')
-#for tag in tags:
-#    print(tag.get('href', None))
+url_lst = []
+tag_lst = []
 
-#count = int(input('Enter count: '))
-counter = 0
-#position = int(input('Enter position: '))
-x = 0
-url = 'http://py4e-data.dr-chuck.net/known_by_Giacomo.html'
-while counter < 7:
+for num in range(count):
+    print ('Receiving', url)
     html = urllib.request.urlopen(url).read()
-    soup = BeautifulSoup(html)
+    soup = BeautifulSoup(html, 'html.parser')
     tags = soup('a')
+    tag_lst = []
 
-    for i in tags:
-        x = x + 1
-        if x == 18:
-            ad = i.get('href', None)
-
-            x = 0
-            break
-    counter = counter + 1
-
-print (ad)
+    for tag in tags:
+        tag_lst.append(tag)
+    url = tag_lst[position-1].get('href', None)
+    url_lst.append(url)
+print(url_lst[-1])
